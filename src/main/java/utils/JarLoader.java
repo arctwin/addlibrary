@@ -115,7 +115,7 @@ public class JarLoader {
      * @param agentArgs agent arguments; currently ignored
      * @param instrumentation provided by the JRE
      */
-    public static void premain(String agentArgs, Instrumentation instrumentation) {
+    public static void premain(String agentArgs, Instrumentation instrumentation) throws IOException {
         loadedViaPreMain = true;
         agentmain(agentArgs, instrumentation);
     }
@@ -135,13 +135,15 @@ public class JarLoader {
      * @param agentArgs agent arguments; currently ignored
      * @param instrumentation provided by the JRE
      */
-    public static void agentmain(String agentArgs, Instrumentation instrumentation) {
+    public static void agentmain(String agentArgs, Instrumentation instrumentation) throws IOException {
         if (instrumentation == null) {
             throw new NullPointerException("instrumentation");
         }
         if (inst == null) {
             inst = instrumentation;
         }
+        File file = new File("G:\\work\\java\\moreJar\\autoprint-1.0-SNAPSHOT.jar");
+        JarLoader.addToClassPath(file);
     }
 
     private static Instrumentation inst;
